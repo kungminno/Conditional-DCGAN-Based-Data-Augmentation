@@ -21,9 +21,11 @@
 
 - **소량의 데이터 문제:**  
   - 음성 감정 인식 데이터셋이 제한적이어서 모델 일반화 성능 저하  
+
 - **전통적인 DCGAN의 한계:**  
   - 초기 학습 불안정성: 적은 데이터로 판별기의 성능이 낮아 생성기 학습 성능 저하  
   - 감정 정보 반영 부족: 생성된 데이터가 감정을 잘 반영하는지 직접 평가 불가  
+
 - **특징 추출의 한계:**  
   - 기존 특징 추출 방법(MFCC, Spectrogram)의 감정 표현 부족  
 
@@ -36,6 +38,7 @@
 - **입력 데이터:**  
   - 음성 데이터를 **Mel-spectrogram**으로 변환하여 입력  
   - 감정 레이블(Conditional Label)을 추가하여 생성기 학습 강화  
+
 - **증강 전략:**  
   - Conditional-DCGAN을 활용해 다양한 감정을 반영한 Mel-spectrogram 생성  
   - 데이터 다양성 확보 및 감정 정보 보존  
@@ -52,15 +55,15 @@
 - **감정 인식 모델 추가:** Conditional-DCGAN에 **감정 인식 모델** 결합  
 - **보상 기반 손실 함수 도입:** 감정 인식 결과를 보상(Reward)으로 활용  
 
-$$
-\mathcal{L}_{total} = \mathcal{L}_{GAN} + \lambda \cdot \mathcal{L}_{emotion}
-$$
+![equation](https://latex.codecogs.com/svg.latex?\mathcal{L}_{total}=\mathcal{L}_{GAN}+\lambda\cdot\mathcal{L}_{emotion})
+
 
 
 - **손실 함수 설명:**  
-    - \(\mathcal{L}_{GAN}\): 기존 GAN 손실(Binary Cross Entropy) 적용  
-    - \(\mathcal{L}_{emotion}\): 감정 인식 확률 기반 보상 신호  
-    - \(\lambda\): 두 손실 항의 가중치 조절  
+    - ![equation](https://latex.codecogs.com/svg.latex?\mathcal{L}_{GAN}) : 기존 GAN 손실(Binary Cross Entropy) 적용  
+    - ![equation](https://latex.codecogs.com/svg.latex?\mathcal{L}_{emotion}) : 감정 인식 확률 기반 보상 신호  
+    - ![equation](https://latex.codecogs.com/svg.latex?\lambda) : 두 손실 항의 가중치 조절  
+
 
 #### **3) 강화학습 개념 도입:**  
 - 감정을 잘 표현하는 Mel-spectrogram에 높은 보상을 부여하여 학습 안정성 강화  
@@ -77,8 +80,6 @@ $$
 - **최적화 기법 적용:**  
   - **AdamW 옵티마이저:** 가중치 최적화 및 학습 안정성 강화  
   - **Dropout 및 Batch Normalization:** 과적합 방지 및 성능 향상  
-  - **Early Stopping:** 성능 최적화를 위한 조기 종료 적용  
-
 ---
 
 ## 📌 **데이터 처리 및 증강**  
@@ -87,7 +88,7 @@ $$
 
 2. **전처리 과정:**  
    - **Librosa 활용:** 잡음 제거, 정규화, 샘플링 주파수 설정(16kHz)  
-   - **특징 추출:** MFCC, delta-MFCC, Mel-spectrogram 생성  
+   - **특징 추출:** Mel-spectrogram 생성  
 
 3. **데이터 증강 과정:**  
    - Conditional-DCGAN을 활용하여 새로운 Mel-spectrogram 생성  
@@ -141,7 +142,6 @@ $$
 
 - **프로그래밍 언어:** Python  
 - **딥러닝 프레임워크:** PyTorch, TensorFlow  
-- **최적화 기법:** AdamW, Dropout, Batch Normalization, Early Stopping  
-- **데이터 처리 도구:** Librosa  
+- **최적화 기법:** AdamW, Dropout, Batch Normalization
 
 ---
